@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-pink: #db2777;
+  --color-brand-violet: #7c3aed;
+  --color-brand-bg: #fdf2f8;
+}
+
+@layer utilities {
+  .sos-gradient {
+    background: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
+  }
+}

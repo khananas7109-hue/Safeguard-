@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "The user profile information.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["phoneNumber"]
+    },
+    "Contact": {
+      "title": "Contact",
+      "description": "An emergency contact added by the user.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone"]
+    },
+    "Evidence": {
+      "title": "Evidence",
+      "description": "Silent capture of photo or audio.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["photo", "audio"] },
+        "data": { "type": "string", "description": "Base64 or storage URL" },
+        "timestamp": { "type": "integer" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" }
+          }
+        }
+      },
+      "required": ["type", "data", "timestamp"]
+    },
+    "LocationShare": {
+      "title": "LocationShare",
+      "description": "Active real-time location sharing session.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "accuracy": { "type": "number" }
+          }
+        },
+        "battery": { "type": "integer" },
+        "expiresAt": { "type": "number", "description": "Timestamp in ms" },
+        "sharedWith": { "type": "array", "items": { "type": "string" }, "description": "Array of phone numbers" },
+        "status": { "type": "string", "enum": ["active", "expired"] }
+      },
+      "required": ["userId", "location", "expiresAt", "status", "sharedWith"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document."
+    },
+    "/users/{userId}/contacts/{contactId}": {
+      "schema": "Contact",
+      "description": "User's emergency contacts."
+    },
+    "/users/{userId}/evidence/{evidenceId}": {
+      "schema": "Evidence",
+      "description": "Evidence collected during SOS events."
+    },
+    "/shares/{shareId}": {
+      "schema": "LocationShare",
+      "description": "Real-time location sharing sessions."
+    }
+  }
+}

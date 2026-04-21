@@ -1,0 +1,6 @@
+{
+  "name": "SafeGuard",
+  "description": "A comprehensive girls safety app featuring SOS alerts, real-time GPS tracking, silent evidence collection, and automated journey monitoring.",
+  "requestFramePermissions": ["geolocation", "camera", "microphone"],
+  "majorCapabilities": []
+}
